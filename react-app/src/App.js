@@ -5,22 +5,18 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Max', age: 28 },
-      { name: 'Menu', age: 29 },
-      { name: 'Stephanie', age: 26 }
+      { id: '4324rredsfg', name: 'Max', age: 28 },
+      { id: 'vcxt4er', name: 'Menu', age: 29 },
+      { id: '543gfvcx', name: 'Stephanie', age: 26 }
     ],
     otherState: 'some other state',
     showPersons: false
   }
 
-  switchNameHandler = (newName) => {
-    this.setState({
-      persons: [
-        { name: newName, age: 28 },
-        { name: 'Menu', age: 29 },
-        { name: 'Stephanie', age: 27 }
-      ]
-    });
+  deletePersonHandler = (personIndex) => {
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({persons: persons});
   }
 
   nameChangedHandler = (event) => {
@@ -51,8 +47,12 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          {this.state.persons.map(person => {
-            return <Person name={person.name} age={person.age} />
+          {this.state.persons.map((person, index) => {
+            return <Person
+              click={() => this.deletePersonHandler(index)}
+              name={person.name}
+              age={person.age}
+              key={person.id} />
           })}
         </div>
       );
