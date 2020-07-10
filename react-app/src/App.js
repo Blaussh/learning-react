@@ -14,7 +14,6 @@ class App extends Component {
   }
 
   switchNameHandler = (newName) => {
-    // console.log('was Clicked!');
     this.setState({
       persons: [
         { name: newName, age: 28 },
@@ -48,30 +47,25 @@ class App extends Component {
       cursor: 'pointer'
     }
 
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          {this.state.persons.map(person => {
+            return <Person name={person.name} age={person.age} />
+          })}
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <h1>Hi, Im a React App</h1>
         <p>This is realy working</p>
         <button style={style} onClick={this.togglePersonsHandler}>Switch Name</button>
-        {
-          this.state.showPersons ?
-            <div>
-              <Person
-                name={this.state.persons[0].name}
-                age={this.state.persons[0].age}
-              />
-              <Person
-                click={this.switchNameHandler.bind(this, 'Kakaboon')}
-                name={this.state.persons[1].name} age={this.state.persons[1].age}
-                changed={this.nameChangedHandler}>My Hobbies: Racing</Person>
-              <Person
-                name={this.state.persons[2].name}
-                age={this.state.persons[2].age} />
-            </div> : null
-        }
+        {persons}
       </div>
     );
-    // return React.createElement('div', {className: 'App'}, React.createElement('h1',null, 'Hi, I\'m a different react app'));
   }
 }
 
