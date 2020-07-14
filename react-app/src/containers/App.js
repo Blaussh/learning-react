@@ -2,16 +2,35 @@ import React, { Component } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+
 class App extends Component {
-  state = {
-    persons: [
-      { id: '4324rredsfg', name: 'Max', age: 28 },
-      { id: 'vcxt4er', name: 'Menu', age: 29 },
-      { id: '543gfvcx', name: 'Stephanie', age: 26 }
-    ],
-    otherState: 'some other state',
-    showPersons: false
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+    this.state = {
+      persons: [
+        { id: '4324rredsfg', name: 'Max', age: 28 },
+        { id: 'vcxt4er', name: 'Menu', age: 29 },
+        { id: '543gfvcx', name: 'Stephanie', age: 26 }
+      ],
+      otherState: 'some other state',
+      showPersons: false
+    }
   }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentWillMount() {
+    console.log('[App.js] componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+  // state = 
 
   deletePersonHandler = (personIndex) => {
     const persons = [...this.state.persons];
@@ -36,6 +55,8 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] render');
+
     let persons = null;
     if (this.state.showPersons) {
       persons = 
@@ -48,6 +69,7 @@ class App extends Component {
     return (
         <div className={classes.App}>
           <Cockpit 
+          title={this.props.appTitle}
           showPersons={this.state.showPersons}
           persons={this.state.persons} 
           clicked={this.togglePersonsHandler}/>
