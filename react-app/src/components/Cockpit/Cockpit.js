@@ -2,21 +2,33 @@ import React, { useEffect } from 'react'
 import classes from './Cockpit.css'
 
 const Cockpit = (props) => {
-  useEffect(() => {
-    console.log('[Cockpit.js] useEffect');
-    // Http request
-    setTimeout(() => {
-      alert('Saved data to cloud');
-    },1000)
-  },[props.persons]); // runs whenever persons changes
 
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
     // Http request
     setTimeout(() => {
       alert('Only once!');
-    },1000)
-  },[]); // runs only at the first render
+    }, 1000)
+    return () => {
+      console.log('[Cockpit.js] cleanup work in useEffect');
+    };
+  }, []); // runs only at the first render
+
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+    }
+  }, [props.persons]); // runs whenever persons changes
+
+
+  useEffect(() => {
+    console.log('[Cockpit.js] 3rd useEffect');
+    return () => {
+      console.log('[Cockpit.js] cleanup work in 3rd useEffect');
+    }
+  }); // runs on every render.
+
 
   const assingedClasses = [];
   let btnClass = '';
