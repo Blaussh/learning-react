@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import classes from './Cockpit.css'
 
 const Cockpit = (props) => {
+  const toggleBtnRef = useRef(null);
+
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
     // Http request
-    const timer = setTimeout(() => {
-      alert('Only once!');
-    }, 1000)
+    // const timer = setTimeout(() => {
+    //   alert('Only once!');
+    // }, 1000)
+    toggleBtnRef.current.click();
     return () => {
-      clearTimeout(timer);
+      // clearTimeout(timer);
       console.log('[Cockpit.js] cleanup work in useEffect');
     };
   }, []); // runs only at the first render
@@ -46,7 +49,9 @@ const Cockpit = (props) => {
     <div className={classes.Cockpit}>
       <h1>{props.title}</h1>
       <p className={assingedClasses.join(' ')}>This is realy working</p>
-      <button className={btnClass} onClick={props.clicked}>Toggle Persons</button>
+      <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>
+        Toggle Persons
+      </button>
     </div>
   );
 }
